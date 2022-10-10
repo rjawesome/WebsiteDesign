@@ -19,33 +19,32 @@
               <tr>
                 <th scope="col">Count</th>
                 <th scope="col">Mean</th> 
-                <th scope="col">Mininum</th>
-                <th scope="col">Maximum</th>
+                <th scope="col">Median</th>
+                <th scope="col">Standard Deviation</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td id ="countID" scope="row">6</td>
                 <td id = "mean"></td>
-                <td></td>
-                <td></td>
+                <td id = "median"></td>
+                <td id = "standarddeviation"></td>
               </tr>
             </tbody> 
           </table> 
        </div> 
        <script>
         function calcStats() {
-            var dataString = document.getElementById("data").value;
-            var dataArray = dataString.split(" ");
+          fetch('https://spring.rohanj.dev/api/stats/dataset/CoolData')
+  .then((response) => response.json())
+  .then((data) => {
+    const actualData = data[0];
+    document.getElementById("mean").innerHTML = actualData.mean;
+    document.getElementById("median").innerHTML = actualData.median;
+    document.getElementById("standarddeviation").innerHTML = actualData.standardDeviation;
 
-            //count
-            var count = dataArray.length;
-            document.getElementById("countID").innerHTML = count;
-
-            //mean
-        
-
-
+    
+  });
             document.getElementById("summaryTable").style.display = 'block';
         }
        </script>
