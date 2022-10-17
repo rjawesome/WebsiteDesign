@@ -10,9 +10,8 @@
             <label for="data" class="form-label">Numerical data seperated by space</label>
             <input type="text" class="form-control" id="data" placeholder="Data">
           </div>
-          <a href="#" onclick="calcStats()" ><button onclick="return false;" class="btn btn-primary mb-3">Submit</button></a>
         </form>  
-       <div id="summaryTable" style="display:none">
+       <div id="summaryTable">
         <h2>Summary</h2> 
         <table class="table">
             <thead>
@@ -34,19 +33,18 @@
           </table> 
        </div> 
        <script>
-        function calcStats() {
-          fetch('https://spring.rohanj.dev/api/stats/dataset/CoolData')
+          fetch('teamoops.nighthawkcoding.ml/api/stats/dataset/'+window.location.href.split("?")[1])
   .then((response) => response.json())
   .then((data) => {
     const actualData = data[0];
     document.getElementById("mean").innerHTML = actualData.mean;
     document.getElementById("median").innerHTML = actualData.median;
     document.getElementById("standarddeviation").innerHTML = actualData.standardDeviation;
+    document.getElementById("data").value = actualData.data;
+
 
     
   });
-            document.getElementById("summaryTable").style.display = 'block';
-        }
        </script>
     </body>
 </html>
