@@ -5,12 +5,15 @@
     <body class="p-3 m-0 border-0 bd-example">
         <h1>Stats Calculator</h1>
         <h2>Input</h2>
+        <!-- The numerical data that is being processed -->
         <form>
           <div class="mb-3">
             <label for="data" class="form-label">Numerical data seperated by space</label>
             <input type="text" class="form-control" id="data" placeholder="Data">
           </div>
         </form>  
+      
+       <!-- Table contains statistcal values for our data -->
        <div id="summaryTable">
         <h2>Summary</h2> 
         <table class="table">
@@ -24,27 +27,28 @@
             </thead>
             <tbody>
               <tr>
-                <td id ="countID" scope="row">6</td>
-                <td id = "mean"></td>
-                <td id = "median"></td>
-                <td id = "standarddeviation"></td>
+                <td id="countID" scope="row">6</td>
+                <td id="mean"></td>
+                <td id="median"></td>
+                <td id="standarddeviation"></td>
               </tr>
             </tbody> 
           </table> 
        </div> 
        <script>
+          // getting data from our backend for the specific dataset
           fetch('https://teamoops.nighthawkcoding.ml/api/stats/dataset/'+window.location.href.split("?")[1])
-  .then((response) => response.json())
-  .then((data) => {
-    const actualData = data[0];
-    document.getElementById("mean").innerHTML = actualData.mean;
-    document.getElementById("median").innerHTML = actualData.median;
-    document.getElementById("standarddeviation").innerHTML = actualData.standardDeviation;
-    document.getElementById("data").value = actualData.data;
-
-
-    
-  });
+          .then((response) => response.json())
+          .then((data) => {
+            // returns all matching data entries for dataset name (so we take first one)
+            const actualData = data[0];
+            
+            // update HTML elements
+            document.getElementById("mean").innerHTML = actualData.mean;
+            document.getElementById("median").innerHTML = actualData.median;
+            document.getElementById("standarddeviation").innerHTML = actualData.standardDeviation;
+            document.getElementById("data").value = actualData.data;
+          });
        </script>
     </body>
 </html>
